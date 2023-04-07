@@ -1,4 +1,7 @@
-import { Grid } from "./grid";
-const gameBoard = document.getElementById('game-board');
+import { Grid } from "./grid.js";
+import { Tile } from "./tile.js";
 
-const grid = new Grid(gameBoard)
+const gameBoard = document.getElementById("game-board");
+
+const grid = new Grid(gameBoard);
+grid.getRandomEmptyCell().linkTile(new Tile(gameBoard));
