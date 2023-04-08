@@ -25,4 +25,10 @@ export class Tile {  //плитка
   removeFromDOM() {
     this.tileElement.remove();
   }
+
+  waitForTransitionEnd() {
+    return new Promise(resolve => {
+      this.tileElement.addEventListener("transitionend", resolve, {once: true});
+    });
+  }
 }
