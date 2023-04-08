@@ -14,16 +14,20 @@ function setInputOnce() {
 
 function handleInput(e) {
   switch(e.key){
-    case 'ArrowUp': moveUp();
+    case 'ArrowUp': 
+      moveUp();
       break;
 
-    case 'ArrowDown': 
+    case 'ArrowDown':
+      moveDown(); 
       break;
 
     case 'ArrowLeft': 
+      moveLeft();
       break;
 
     case 'ArrowRight': 
+      moveRight();
       break;
 
     default: setInputOnce();
@@ -37,6 +41,17 @@ function moveUp() {
   slideTiles(grid.cellsGroupedByColumn);
 }
 
+function moveDown() {
+  slideTiles(grid.cellsGroupedByReversedColumn)
+}
+
+function moveLeft() {
+  slideTiles(grid.cellsGroupedByRow)
+}
+
+function moveRight(){
+  slideTiles(grid.cellsGroupedByReversedRow);
+}
 function slideTiles(groupedCells) {
   groupedCells.forEach(group => slideTilesInGroup(group));
 
