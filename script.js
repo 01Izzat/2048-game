@@ -23,14 +23,26 @@ async function handleInput(e) {
       break;
 
     case 'ArrowDown':
+      if (!canMoveDown()){
+        setInputOnce();
+        return;
+      } 
      await moveDown(); 
       break;
 
     case 'ArrowLeft': 
+      if (!canMoveLeft()){
+      setInputOnce();
+      return;
+    } 
      await moveLeft();
       break;
 
-    case 'ArrowRight': 
+    case 'ArrowRight':
+      if (!canMoveRight()){
+        setInputOnce();
+        return;
+      }  
      await moveRight();
       break;
 
@@ -105,6 +117,18 @@ function slideTilesInGroup(group, promises){
 
 function canMoveUp() {
   return canMove(grid.cellsGroupedByColumn);
+}
+
+function canMoveDown() {
+  return canMove(grid.cellsGroupedByReversedColumn);
+}
+
+function canMoveLeft() {
+  return canMove(grid.cellsGroupedByRow);
+}
+
+function canMoveRight() {
+  return canMove(grid.cellsGroupedByReversedRow);
 }
 
 function canMove(groupedCells) {
