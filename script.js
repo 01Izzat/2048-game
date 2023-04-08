@@ -14,8 +14,12 @@ function setInputOnce() {
 
 async function handleInput(e) {
   switch(e.key){
-    case 'ArrowUp': 
-     await moveUp();
+    case 'ArrowUp':
+      if (!canMoveUp()){
+        setInputOnce();
+        return;
+      } 
+    await moveUp();
       break;
 
     case 'ArrowDown':
@@ -97,4 +101,26 @@ function slideTilesInGroup(group, promises){
 
     cellWithTile.unlinkTile();
   }
+}
+
+function canMoveUp() {
+  return canMove(grid.cellsGroupedByColumn);
+}
+
+function canMove(groupedCells) {
+  return groupedCells.some(group => canMoveInGroup(group)); 
+}
+
+function canMoveInGroup(group) {
+  return group.some((cell, index) => {
+    if (index === 0){
+      return false;
+    }
+    if (cell.isEmpty()) {
+      return false;
+    }
+
+    const targetCell = group[index - 1];
+    return targetCell.canAccept(cell.linkedTile);
+  })
 }
